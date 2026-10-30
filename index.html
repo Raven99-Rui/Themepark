@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" id="themeColor" content="#f0e6d1">
+  <meta name="description" content="紙間照相館 — 一間可以掀簾、投幣、四連拍的復古銀鹽拍照亭。">
+  <title>紙間照相館 · The Paper Photobooth</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23173f31'/%3E%3Cpath d='M17 24h8l3-5h11l3 5h5c2 0 3 1 3 3v16c0 2-1 3-3 3H17c-2 0-3-1-3-3V27c0-2 1-3 3-3Z' fill='none' stroke='%23d8b373' stroke-width='2'/%3E%3Ccircle cx='32' cy='35' r='7' fill='none' stroke='%23d8b373' stroke-width='2'/%3E%3Ccircle cx='47' cy='28' r='1.6' fill='%23d8b373'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-screen="exterior">
+  <a class="skip-link" href="#main">跳至主要內容</a>
+
+  <div class="paper-grain" aria-hidden="true"></div>
+  <div class="flash-layer" id="flashLayer" aria-hidden="true"></div>
+  <div class="veil" id="veil" aria-hidden="true"></div>
+
+  <header class="site-head">
+    <div class="brand" aria-label="紙間照相館 The Paper Photobooth">
+      <span class="brand-emblem" aria-hidden="true">
+        <svg viewBox="0 0 40 40" focusable="false">
+          <circle cx="20" cy="20" r="18.25" fill="none" stroke="currentColor" stroke-width="1"/>
+          <path d="M12 16.2h4l1.6-2.4h4.8l1.6 2.4h4c1.4 0 2.4 1 2.4 2.4v7.6c0 1.4-1 2.4-2.4 2.4H12c-1.4 0-2.4-1-2.4-2.4v-7.6c0-1.4 1-2.4 2.4-2.4Z" fill="none" stroke="currentColor" stroke-width="1.2"/>
+          <circle cx="20" cy="22.2" r="4.2" fill="none" stroke="currentColor" stroke-width="1.2"/>
+          <circle cx="26.8" cy="18.7" r=".9" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="brand-type">
+        <span class="brand-cn">紙間照相館</span>
+        <span class="brand-en">THE PAPER PHOTOBOOTH</span>
+      </span>
+    </div>
+
+    <p class="head-note"><span>FOUR POSES</span><i aria-hidden="true"></i><span>SILVER GELATIN</span></p>
+
+    <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true" aria-label="關閉音效">
+      <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span class="sound-label">SOUND ON</span>
+    </button>
+  </header>
+
+  <main id="main">
+    <!-- ────────────────────────────── 01 · EXTERIOR ───────────────────────────── -->
+    <section class="screen screen-exterior" id="screenExterior" data-screen="exterior" aria-labelledby="exteriorKicker">
+      <div class="exterior-arch" aria-hidden="true"></div>
+
+      <p class="exterior-kicker" id="exteriorKicker">
+        <span>A SMALL ROOM</span><i aria-hidden="true"></i><span>FOR BIG MEMORIES</span>
+      </p>
+
+      <aside class="edge-note edge-note--left" aria-hidden="true">
+        <span class="edge-index">NO. 07</span>
+        <span class="edge-line"></span>
+        <span class="edge-copy">銀鹽四連拍<br>SILVER FOUR</span>
+      </aside>
+      <aside class="edge-note edge-note--right" aria-hidden="true">
+        <span class="edge-copy">EVERY 3 SECONDS<br>A FLASH OF MEMORY</span>
+        <span class="edge-line"></span>
+        <span class="edge-index">EST. 2026</span>
+      </aside>
+
+      <div class="booth-stage" id="boothStage">
+        <div class="booth-aura" aria-hidden="true"></div>
+
+        <svg class="booth-svg" id="boothSvg" viewBox="0 0 760 860" role="img" aria-labelledby="boothTitle boothDesc">
+          <title id="boothTitle">紙間照相館拍照亭</title>
+          <desc id="boothDesc">一間奶油色、酒紅色與深綠色相間的紙藝復古拍照亭，正面有一道酒紅色布簾。拉開布簾便可進入拍照。</desc>
+          <defs>
+            <linearGradient id="creamFace" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f7edd8"/>
+              <stop offset=".55" stop-color="#ecdfc5"/>
+              <stop offset="1" stop-color="#ddccb0"/>
+            </linearGradient>
+            <linearGradient id="creamEdge" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fbf4e5"/>
+              <stop offset="1" stop-color="#e2d1b4"/>
+            </linearGradient>
+            <linearGradient id="goldFace" x1="0" y1="0" x2=".7" y2="1">
+              <stop offset="0" stop-color="#f0d49b"/>
+              <stop offset=".35" stop-color="#d4aa63"/>
+              <stop offset=".7" stop-color="#b6863d"/>
+              <stop offset="1" stop-color="#e3c486"/>
+            </linearGradient>
+            <linearGradient id="goldRod" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f2dba9"/>
+              <stop offset=".45" stop-color="#c08d43"/>
+              <stop offset="1" stop-color="#8b6029"/>
+            </linearGradient>
+            <linearGradient id="greenFace" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2f5b49"/>
+              <stop offset=".55" stop-color="#204738"/>
+              <stop offset="1" stop-color="#173b2f"/>
+            </linearGradient>
+            <linearGradient id="greenSide" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#15382c"/>
+              <stop offset="1" stop-color="#2c5745"/>
+            </linearGradient>
+            <linearGradient id="maroonFace" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#8d3c49"/>
+              <stop offset=".5" stop-color="#742733"/>
+              <stop offset="1" stop-color="#5d1b27"/>
+            </linearGradient>
+            <linearGradient id="maroonSide" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#5a1a25"/>
+              <stop offset="1" stop-color="#84303e"/>
+            </linearGradient>
+            <linearGradient id="awningLight" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f8efdb"/>
+              <stop offset=".7" stop-color="#e9d8ba"/>
+              <stop offset="1" stop-color="#d7c3a2"/>
+            </linearGradient>
+            <linearGradient id="awningRed" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#943f4c"/>
+              <stop offset=".7" stop-color="#782a37"/>
+              <stop offset="1" stop-color="#611e2a"/>
+            </linearGradient>
+            <linearGradient id="awningShade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#412218" stop-opacity=".04"/>
+              <stop offset=".55" stop-color="#412218" stop-opacity=".18"/>
+              <stop offset="1" stop-color="#412218" stop-opacity=".34"/>
+            </linearGradient>
+            <linearGradient id="curtainFoldL" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#521724"/>
+              <stop offset=".14" stop-color="#7c2a38"/>
+              <stop offset=".38" stop-color="#973e4b"/>
+              <stop offset=".58" stop-color="#6d2230"/>
+              <stop offset=".82" stop-color="#893140"/>
+              <stop offset="1" stop-color="#5a1a27"/>
+            </linearGradient>
+            <linearGradient id="curtainFoldR" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#5c1b28"/>
+              <stop offset=".18" stop-color="#8a3341"/>
+              <stop offset=".42" stop-color="#6d2230"/>
+              <stop offset=".65" stop-color="#9b414d"/>
+              <stop offset=".86" stop-color="#782734"/>
+              <stop offset="1" stop-color="#501622"/>
+            </linearGradient>
+            <linearGradient id="curtainTopShade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#1c0d10" stop-opacity=".55"/>
+              <stop offset=".22" stop-color="#1c0d10" stop-opacity=".12"/>
+              <stop offset="1" stop-color="#1c0d10" stop-opacity="0"/>
+            </linearGradient>
+            <radialGradient id="openingDark" cx=".5" cy=".4" r=".75">
+              <stop offset="0" stop-color="#294f40"/>
+              <stop offset=".65" stop-color="#142f26"/>
+              <stop offset="1" stop-color="#0a1c16"/>
+            </radialGradient>
+            <radialGradient id="insideGlow" cx=".5" cy=".34" r=".7">
+              <stop offset="0" stop-color="#f3dfb4" stop-opacity=".42"/>
+              <stop offset=".35" stop-color="#b5a879" stop-opacity=".2"/>
+              <stop offset="1" stop-color="#173b2f" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="boothGlow" cx=".42" cy=".32" r=".7">
+              <stop offset="0" stop-color="#fffaf0" stop-opacity=".58"/>
+              <stop offset="1" stop-color="#fffaf0" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="blurSoft" x="-40%" y="-80%" width="180%" height="260%">
+              <feGaussianBlur stdDeviation="12"/>
+            </filter>
+            <filter id="blurTiny" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="2"/>
+            </filter>
+            <filter id="paperShadow" x="-30%" y="-30%" width="170%" height="170%">
+              <feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#5a3b24" flood-opacity=".22"/>
+            </filter>
+            <clipPath id="awningClip">
+              <path d="M100 263 H645 L628 320 H116 Z"/>
+            </clipPath>
+            <clipPath id="openingClip">
+              <path d="M225 707 V501 C225 371 294 360 376 360 C458 360 527 371 527 501 V707 Z"/>
+            </clipPath>
+            <clipPath id="sideWindowClip">
+              <path d="M596 354 L635 341 L635 475 L596 488 Z"/>
+            </clipPath>
+          </defs>
+
+          <!-- shadow -->
+          <ellipse cx="387" cy="813" rx="295" ry="31" fill="#b9a586" opacity=".45" filter="url(#blurSoft)"/>
+          <ellipse cx="390" cy="807" rx="245" ry="19" fill="#8e7655" opacity=".16" filter="url(#blurSoft)"/>
+
+          <!-- platform -->
+          <g class="booth-base">
+            <path d="M104 784 H658 L684 769 H135 Z" fill="#d8c6a5"/>
+            <rect x="104" y="784" width="554" height="28" rx="2" fill="#cdb997"/>
+            <rect x="104" y="784" width="554" height="7" fill="#e7d7ba"/>
+            <path d="M658 784 L684 769 V793 L658 812 Z" fill="#b7a17f"/>
+            <path d="M122 755 H646 L666 742 H146 Z" fill="#e4d3b4"/>
+            <rect x="122" y="755" width="524" height="25" rx="1.5" fill="#d5c2a1"/>
+            <rect x="122" y="755" width="524" height="6" fill="#f1e2c7"/>
+            <path d="M646 755 L666 742 V763 L646 780 Z" fill="#bda785"/>
+            <path d="M145 728 H630 L646 717 H163 Z" fill="#eee0c4"/>
+            <rect x="145" y="728" width="485" height="24" rx="1.5" fill="#deceb0"/>
+            <rect x="145" y="728" width="485" height="5" fill="#f8ecd6"/>
+            <path d="M630 728 L646 717 V737 L630 752 Z" fill="#c5b08d"/>
+          </g>
+
+          <!-- side face -->
+          <g class="booth-side">
+            <path d="M610 247 L674 220 L674 707 L610 735 Z" fill="url(#creamFace)"/>
+            <path d="M610 247 L674 220 L674 707 L610 735 Z" fill="none" stroke="#c9a15f" stroke-width="1.2" opacity=".65"/>
+            <path d="M620 267 L661 249 L661 690 L620 710 Z" fill="url(#greenSide)"/>
+            <path d="M620 267 L661 249 L661 690 L620 710 Z" fill="none" stroke="#d7b77a" stroke-width="1" opacity=".65"/>
+            <path d="M624 284 L657 270 L657 315 L624 330 Z" fill="#7b2b37"/>
+            <path d="M626 328 L656 316 L656 447 L626 460 Z" fill="#f0e0c2" opacity=".96"/>
+            <path d="M630 335 L652 326 L652 440 L630 449 Z" fill="#6c202b"/>
+            <path d="M630 335 L652 326 L652 440 L630 449 Z" fill="none" stroke="#d4ab66" stroke-width=".8"/>
+            <!-- side window curtain -->
+            <g clip-path="url(#sideWindowClip)">
+              <rect x="590" y="330" width="55" height="170" fill="#6c202b"/>
+              <path d="M596 340 C610 385 604 430 596 482" fill="none" stroke="#a34a54" stroke-width="8" opacity=".55"/>
+              <path d="M615 334 C604 380 612 430 620 480" fill="none" stroke="#8f3946" stroke-width="7" opacity=".5"/>
+              <path d="M632 340 C622 381 628 428 634 472" fill="none" stroke="#b45b63" stroke-width="5" opacity=".35"/>
+            </g>
+            <path d="M596 354 L635 341 L635 475 L596 488 Z" fill="none" stroke="url(#goldRod)" stroke-width="3"/>
+            <path d="M624 510 L657 496 L657 597 L624 610 Z" fill="#1d4436"/>
+            <path d="M624 510 L657 496 L657 597 L624 610 Z" fill="none" stroke="#cba360" stroke-width="1.2"/>
+            <path d="M630 522 L652 513 L652 583 L630 592 Z" fill="none" stroke="#cba360" stroke-width=".7" opacity=".75"/>
+            <rect x="642" y="530" width="4" height="52" rx="2" fill="#cba360" opacity=".72"/>
+            <path d="M633 617 L657 606 L657 674 L633 685 Z" fill="#6e202b"/>
+            <path d="M633 617 L657 606 L657 674 L633 685 Z" fill="none" stroke="#d0a863" stroke-width=".8"/>
+            <text x="646" y="650" text-anchor="middle" font-size="6.2" letter-spacing="1.6" fill="#ead8b5" font-family="Georgia,serif">PRINT</text>
+            <rect x="637" y="658" width="19" height="2.4" rx="1.2" fill="#24170f"/>
+            <circle cx="664" cy="214" r="9" fill="url(#goldFace)" stroke="#8c6128" stroke-width=".8"/>
+          </g>
+
+          <!-- main facade -->
+          <g class="booth-facade">
+            <rect x="140" y="235" width="470" height="501" rx="4" fill="url(#creamFace)"/>
+            <rect x="150" y="247" width="450" height="478" rx="2" fill="#d8c39f" opacity=".55"/>
+            <rect x="157" y="254" width="436" height="464" rx="1.5" fill="url(#greenFace)"/>
+            <rect x="157" y="254" width="436" height="464" rx="1.5" fill="none" stroke="#d2a75f" stroke-width="1" opacity=".7"/>
+
+            <!-- lower skirts and rails -->
+            <path d="M157 675 H593 V718 H157 Z" fill="#efe1c6"/>
+            <path d="M157 675 H593 V682 H157 Z" fill="#c99d57"/>
+            <path d="M157 712 H593 V718 H157 Z" fill="#c49a58" opacity=".55"/>
+            <rect x="169" y="686" width="412" height="20" fill="#e8d9bb" opacity=".58"/>
+            <path d="M169 686 H581" stroke="#c69b57" stroke-width=".8" opacity=".6"/>
+
+            <!-- façade finials and side crests -->
+            <g class="crest-sides">
+              <rect x="170" y="102" width="58" height="144" fill="url(#creamFace)" stroke="#c79c58" stroke-width="1"/>
+              <rect x="174" y="108" width="50" height="7" fill="#e9d7b6"/>
+              <rect x="180" y="119" width="38" height="112" fill="url(#greenFace)" stroke="#c79c58" stroke-width=".8"/>
+              <path d="M199 154 L204 170 L220 175 L204 180 L199 196 L194 180 L178 175 L194 170 Z" fill="url(#goldFace)"/>
+              <circle cx="199" cy="88" r="17" fill="url(#goldFace)" stroke="#8b602a" stroke-width=".9"/>
+              <circle cx="194" cy="82" r="4" fill="#f9e8bd" opacity=".7"/>
+
+              <rect x="532" y="102" width="58" height="144" fill="url(#creamFace)" stroke="#c79c58" stroke-width="1"/>
+              <rect x="536" y="108" width="50" height="7" fill="#e9d7b6"/>
+              <rect x="542" y="119" width="38" height="112" fill="url(#greenFace)" stroke="#c79c58" stroke-width=".8"/>
+              <path d="M561 154 L566 170 L582 175 L566 180 L561 196 L556 180 L540 175 L556 170 Z" fill="url(#goldFace)"/>
+              <circle cx="561" cy="88" r="17" fill="url(#goldFace)" stroke="#8b602a" stroke-width=".9"/>
+              <circle cx="556" cy="82" r="4" fill="#f9e8bd" opacity=".7"/>
+            </g>
+
+            <!-- central marquee -->
+            <g class="marquee" filter="url(#paperShadow)">
+              <path d="M230 260 V177 C230 113 290 89 380 89 C470 89 530 113 530 177 V260 Z" fill="url(#maroonFace)" stroke="#8f642a" stroke-width="2"/>
+              <path d="M239 252 V178 C239 122 296 99 380 99 C464 99 521 122 521 178 V252 Z" fill="none" stroke="url(#goldRod)" stroke-width="2.2"/>
+              <path d="M249 244 V180 C249 132 300 110 380 110 C460 110 511 132 511 180 V244 Z" fill="url(#creamFace)" stroke="#b78944" stroke-width="1.2"/>
+              <path d="M264 235 V183 C264 143 307 124 380 124 C453 124 496 143 496 183 V235 Z" fill="url(#greenFace)" stroke="#c79c58" stroke-width="1"/>
+              <path d="M284 225 V187 C284 156 317 141 380 141 C443 141 476 156 476 187 V225 Z" fill="url(#creamFace)" stroke="#c79c58" stroke-width="1.1"/>
+
+              <!-- camera icon -->
+              <g stroke="#8c622d" stroke-width="1.3">
+                <rect x="337" y="157" width="86" height="57" rx="8" fill="url(#goldFace)"/>
+                <path d="M357 157 L362 148 H389 L395 157 Z" fill="url(#goldFace)"/>
+                <rect x="402" y="162" width="12" height="7" rx="1.5" fill="#efe2c8" opacity=".9"/>
+                <circle cx="380" cy="186" r="23" fill="#a97a37"/>
+                <circle cx="380" cy="186" r="17.5" fill="#d5b06b"/>
+                <circle cx="380" cy="186" r="11.5" fill="#6e4c22"/>
+                <circle cx="380" cy="186" r="7" fill="#c49b59"/>
+                <path d="M369 175 A15 15 0 0 1 388 172" fill="none" stroke="#f7e5b6" stroke-width="2.2" opacity=".8"/>
+                <circle cx="416" cy="168" r="2.2" fill="#6e4c22"/>
+              </g>
+              <text x="380" y="226" text-anchor="middle" font-size="7.2" letter-spacing="3.2" fill="#8c642d" font-family="Georgia, 'Times New Roman', serif">PHOTO · BOOTH</text>
+              <circle cx="380" cy="66" r="16" fill="url(#goldFace)" stroke="#8b602a" stroke-width="1"/>
+              <circle cx="375" cy="60" r="4.5" fill="#f9ebc8" opacity=".7"/>
+            </g>
+
+            <!-- awning shadow and canopy -->
+            <g class="awning" filter="url(#paperShadow)">
+              <path d="M96 260 H648 L633 321 H112 Z" fill="#4f1b24"/>
+              <g clip-path="url(#awningClip)">
+                <g class="awning-stripes">
+                  <path d="M100 263 H148 V314 A24 25 0 0 1 100 314 Z" fill="url(#awningRed)"/>
+                  <path d="M148 263 H196 V314 A24 25 0 0 1 148 314 Z" fill="url(#awningLight)"/>
+                  <path d="M196 263 H244 V314 A24 25 0 0 1 196 314 Z" fill="url(#awningRed)"/>
+                  <path d="M244 263 H292 V314 A24 25 0 0 1 244 314 Z" fill="url(#awningLight)"/>
+                  <path d="M292 263 H340 V314 A24 25 0 0 1 292 314 Z" fill="url(#awningRed)"/>
+                  <path d="M340 263 H388 V314 A24 25 0 0 1 340 314 Z" fill="url(#awningLight)"/>
+                  <path d="M388 263 H436 V314 A24 25 0 0 1 388 314 Z" fill="url(#awningRed)"/>
+                  <path d="M436 263 H484 V314 A24 25 0 0 1 436 314 Z" fill="url(#awningLight)"/>
+                  <path d="M484 263 H532 V314 A24 25 0 0 1 484 314 Z" fill="url(#awningRed)"/>
+                  <path d="M532 263 H580 V314 A24 25 0 0 1 532 314 Z" fill="url(#awningLight)"/>
+                  <path d="M580 263 H628 V314 A24 25 0 0 1 580 314 Z" fill="url(#awningRed)"/>
+                  <path d="M628 263 H648 V314 A10 25 0 0 1 628 314 Z" fill="url(#awningLight)"/>
+                </g>
+                <path d="M96 263 H648 V321 H96 Z" fill="url(#awningShade)"/>
+                <path d="M96 263 H648" stroke="#e5c58d" stroke-width="2.2"/>
+                <path d="M112 321 H633" stroke="#c79a54" stroke-width="1.1" opacity=".75"/>
+              </g>
+              <path d="M100 314 A24 25 0 0 1 148 314" fill="none" stroke="#d2a35d" stroke-width="1.4"/>
+              <path d="M196 314 A24 25 0 0 1 244 314" fill="none" stroke="#d2a35d" stroke-width="1.4"/>
+              <path d="M292 314 A24 25 0 0 1 340 314" fill="none" stroke="#d2a35d" stroke-width="1.4"/>
+              <path d="M388 314 A24 25 0 0 1 436 314" fill="none" stroke="#d2a35d" stroke-width="1.4"/>
+              <path d="M484 314 A24 25 0 0 1 532 314" fill="none" stroke="#d2a35d" stroke-width="1.4"/>
+              <path d="M580 314 A24 25 0 0 1 628 314" fill="none" stroke="#d2a35d" stroke-width="1.4"/>
+            </g>
+            <rect x="140" y="320" width="470" height="18" fill="#4c2f22" opacity=".18" filter="url(#blurTiny)"/>
+
+            <!-- side pilasters -->
+            <g class="pilasters">
+              <rect x="145" y="328" width="70" height="399" fill="url(#creamEdge)" stroke="#c89b55" stroke-width=".9"/>
+              <rect x="153" y="342" width="54" height="12" fill="#ead8b8" stroke="#c89b55" stroke-width=".6"/>
+              <rect x="161" y="366" width="38" height="302" fill="url(#maroonFace)" stroke="#c79a54" stroke-width=".8"/>
+              <rect x="169" y="380" width="22" height="266" fill="none" stroke="#d7b77a" stroke-width=".75" opacity=".75"/>
+              <path d="M153 673 H207 V691 H153 Z" fill="#ead8b8" stroke="#c89b55" stroke-width=".7"/>
+              <rect x="145" y="705" width="70" height="22" fill="#f0e2c7" stroke="#c89b55" stroke-width=".7"/>
+
+              <rect x="545" y="328" width="70" height="399" fill="url(#creamEdge)" stroke="#c89b55" stroke-width=".9"/>
+              <rect x="553" y="342" width="54" height="12" fill="#ead8b8" stroke="#c89b55" stroke-width=".6"/>
+              <rect x="561" y="366" width="38" height="302" fill="url(#maroonFace)" stroke="#c79a54" stroke-width=".8"/>
+              <rect x="569" y="380" width="22" height="266" fill="none" stroke="#d7b77a" stroke-width=".75" opacity=".75"/>
+              <path d="M553 673 H607 V691 H553 Z" fill="#ead8b8" stroke="#c89b55" stroke-width=".7"/>
+              <rect x="545" y="705" width="70" height="22" fill="#f0e2c7" stroke="#c89b55" stroke-width=".7"/>
+            </g>
+
+            <!-- finials on pilasters -->
+            <g class="pilaster-finials">
+              <path d="M155 488 H210 V500 H155 Z" fill="#e9d6b4" stroke="#c89b55" stroke-width=".7"/>
+              <rect x="171" y="474" width="24" height="14" fill="#d1a45e"/>
+              <circle cx="183" cy="458" r="16" fill="url(#goldFace)" stroke="#8b602a" stroke-width=".8"/>
+              <circle cx="178" cy="452" r="4.2" fill="#f8e9c2" opacity=".65"/>
+              <path d="M551 488 H606 V500 H551 Z" fill="#e9d6b4" stroke="#c89b55" stroke-width=".7"/>
+              <rect x="565" y="474" width="24" height="14" fill="#d1a45e"/>
+              <circle cx="577" cy="458" r="16" fill="url(#goldFace)" stroke="#8b602a" stroke-width=".8"/>
+              <circle cx="572" cy="452" r="4.2" fill="#f8e9c2" opacity=".65"/>
+            </g>
+
+            <!-- doorway frame -->
+            <path d="M211 721 V500 C211 349 283 340 376 340 C469 340 541 349 541 500 V721 Z" fill="#f1e3c8" stroke="#c1934d" stroke-width="1.4"/>
+            <path d="M219 716 V500 C219 360 289 349 376 349 C463 349 533 360 533 500 V716 Z" fill="#d4a75f" opacity=".9"/>
+            <path d="M225 707 V501 C225 371 294 360 376 360 C458 360 527 371 527 501 V707 Z" fill="url(#openingDark)"/>
+            <path d="M225 707 V501 C225 371 294 360 376 360 C458 360 527 371 527 501 V707 Z" fill="none" stroke="#8f642a" stroke-width="1.1"/>
+
+            <!-- the small lit room behind the curtain -->
+            <g clip-path="url(#openingClip)">
+              <rect x="225" y="360" width="302" height="347" fill="url(#insideGlow)" opacity=".95"/>
+              <path d="M274 662 H480 L496 681 H258 Z" fill="#6f3a30" opacity=".72"/>
+              <path d="M286 647 H468 V662 H286 Z" fill="#7d4436" opacity=".68"/>
+              <rect x="298" y="681" width="8" height="31" fill="#3b2720" opacity=".8"/>
+              <rect x="448" y="681" width="8" height="31" fill="#3b2720" opacity=".8"/>
+              <path d="M276 360 V432" stroke="#c79b56" stroke-width="1" opacity=".35"/>
+              <path d="M476 360 V432" stroke="#c79b56" stroke-width="1" opacity=".35"/>
+              <circle cx="376" cy="390" r="30" fill="#f8e4b7" opacity=".14"/>
+              <circle cx="376" cy="390" r="4.5" fill="#f8eccb" opacity=".8"/>
+              <path d="M376 360 V386" stroke="#c79b56" stroke-width="1.1" opacity=".5"/>
+              <path d="M251 703 H501" stroke="#c79b56" stroke-width=".8" opacity=".3"/>
+            </g>
+
+            <!-- curtain -->
+            <g clip-path="url(#openingClip)">
+              <g id="curtainLeft" class="curtain curtain-left">
+                <rect x="220" y="356" width="159" height="360" fill="url(#curtainFoldL)"/>
+                <path d="M231 356 C220 445 236 574 225 716 H247 C259 582 245 442 253 356 Z" fill="#511724" opacity=".48"/>
+                <path d="M270 356 C258 470 280 590 265 716 H283 C299 588 279 464 291 356 Z" fill="#a44b55" opacity=".27"/>
+                <path d="M306 356 C299 455 312 604 302 716 H320 C331 602 320 460 327 356 Z" fill="#4d1522" opacity=".42"/>
+                <path d="M344 356 C337 442 350 588 340 716 H358 C370 586 356 454 363 356 Z" fill="#a04852" opacity=".22"/>
+                <path d="M376 356 V716 H360 C366 584 354 445 360 356 Z" fill="#4a1320" opacity=".32"/>
+                <rect x="220" y="356" width="159" height="360" fill="url(#curtainTopShade)"/>
+              </g>
+              <g id="curtainRight" class="curtain curtain-right">
+                <rect x="381" y="356" width="159" height="360" fill="url(#curtainFoldR)"/>
+                <path d="M390 356 C382 452 393 598 385 716 H403 C414 596 402 458 411 356 Z" fill="#4e1522" opacity=".38"/>
+                <path d="M426 356 C418 463 432 585 421 716 H441 C453 584 438 458 448 356 Z" fill="#aa4c56" opacity=".22"/>
+                <path d="M465 356 C456 445 470 603 458 716 H477 C490 596 475 451 485 356 Z" fill="#4b1420" opacity=".42"/>
+                <path d="M505 356 C497 470 510 590 499 716 H519 C531 584 517 458 527 356 Z" fill="#a54a55" opacity=".25"/>
+                <path d="M527 356 V716 H538 V356 Z" fill="#511823" opacity=".4"/>
+                <rect x="381" y="356" width="159" height="360" fill="url(#curtainTopShade)"/>
+              </g>
+              <path d="M220 368 H539" stroke="#d2a45e" stroke-width="6" opacity=".75"/>
+              <circle cx="219" cy="368" r="8" fill="url(#goldFace)" stroke="#8a5f28" stroke-width=".8"/>
+              <circle cx="540" cy="368" r="8" fill="url(#goldFace)" stroke="#8a5f28" stroke-width=".8"/>
+            </g>
+
+            <!-- interaction target -->
+            <rect id="curtainHit" x="211" y="340" width="330" height="381" fill="transparent" style="cursor:grab"/>
+
+            <!-- entrance steps -->
+            <g class="entry-steps">
+              <path d="M237 692 H516 L531 708 H222 Z" fill="#f6ead4"/>
+              <rect x="237" y="692" width="279" height="18" fill="#ead9ba"/>
+              <path d="M226 710 H528 L540 722 H214 Z" fill="#f3e5ca"/>
+              <rect x="226" y="710" width="302" height="18" fill="#e4d2b2"/>
+              <path d="M214 728 H540 V735 H214 Z" fill="#d9c6a5"/>
+              <path d="M237 692 H516" stroke="#c89b55" stroke-width=".8" opacity=".6"/>
+              <path d="M226 710 H528" stroke="#c89b55" stroke-width=".8" opacity=".6"/>
+            </g>
+
+            <!-- small lower plaque -->
+            <g class="lower-plaque">
+              <rect x="488" y="746" width="86" height="21" rx="2" fill="#1c4436" stroke="#c9a05c" stroke-width=".9"/>
+              <rect x="493" y="750" width="76" height="13" fill="none" stroke="#d8b87a" stroke-width=".5"/>
+              <text x="531" y="759.5" text-anchor="middle" font-size="5.8" letter-spacing="1.7" fill="#e9d7b4" font-family="Georgia,serif">PRINT SLOT</text>
+              <rect x="505" y="765" width="52" height="2" rx="1" fill="#24150f"/>
+            </g>
+
+            <text x="252" y="757" font-size="6.2" letter-spacing="2" fill="#96754b" font-family="Georgia,serif">EST. 2026 · No. 07</text>
+          </g>
+
+          <!-- warm highlight -->
+          <path d="M140 250 H610 V735 H140 Z" fill="url(#boothGlow)" opacity=".24" pointer-events="none"/>
+        </svg>
+
+        <button class="curtain-pull" id="curtainPull" type="button" aria-label="掀開布簾，進入拍照亭" aria-expanded="false">
+          <span class="pull-arrow" aria-hidden="true">↔</span>
+          <span class="pull-cn">掀開</span>
+          <span class="pull-en">ENTER</span>
+        </button>
+      </div>
+
+      <footer class="exterior-foot">
+        <div class="foot-intro">
+          <p class="eyebrow">A FOUR-POSE KEEPSAKE</p>
+          <h1>掀開簾子，留住這一刻。</h1>
+          <p class="foot-lede">投下一枚硬幣，讓閃光替你把時間停住。四格銀鹽，一張屬於你的紙上記憶。</p>
+          <button class="foot-cta" id="footOpenBtn" type="button">
+            <span class="foot-cta-label">掀開簾子</span><small>OPEN &amp; ENTER</small><i aria-hidden="true">→</i>
+          </button>
+        </div>
+        <ol class="steps" aria-label="拍照流程">
+          <li><span class="step-no">01</span><span class="step-name">掀簾</span><small>OPEN</small></li>
+          <li><span class="step-no">02</span><span class="step-name">投幣</span><small>INSERT</small></li>
+          <li><span class="step-no">03</span><span class="step-name">四連拍</span><small>FOUR POSES</small></li>
+          <li><span class="step-no">04</span><span class="step-name">取相</span><small>COLLECT</small></li>
+        </ol>
+      </footer>
+    </section>
+
+    <!-- ────────────────────────────── 02 · INTERIOR ───────────────────────────── -->
+    <section class="screen screen-interior" id="screenInterior" data-screen="interior" aria-labelledby="interiorTitle" hidden>
+      <div class="interior-halo" aria-hidden="true"></div>
+      <div class="interior-mark" aria-hidden="true">04</div>
+
+      <div class="interior-shell">
+        <div class="interior-topbar">
+          <button class="back-link" id="backToBooth" type="button"><span aria-hidden="true">←</span> 返回拍照亭</button>
+          <p class="session-label">四連拍 <span>·</span> FOUR POSES</p>
+          <p class="camera-status" id="cameraStatus" data-state="off" role="status" aria-live="polite">
+            <span class="status-dot" aria-hidden="true"></span><span id="cameraStatusText">相機未開啟</span>
+          </p>
+        </div>
+
+        <div class="embed-banner" id="embedBanner" hidden>
+          <p id="embedBannerText">目前在嵌入預覽中，瀏覽器可能封鎖相機。</p>
+          <button type="button" id="openInNewTabBtn">在新分頁開啟 <span aria-hidden="true">↗</span></button>
+        </div>
+
+        <div class="interior-grid">
+          <div class="viewer-column">
+            <div class="viewer-mount">
+              <span class="screw screw-tl" aria-hidden="true"></span>
+              <span class="screw screw-tr" aria-hidden="true"></span>
+              <span class="screw screw-bl" aria-hidden="true"></span>
+              <span class="screw screw-br" aria-hidden="true"></span>
+
+              <div class="viewer-media" id="viewerMedia">
+                <video id="cameraVideo" playsinline autoplay muted aria-label="即時相機預覽"></video>
+                <img class="demo-image" id="demoImage" alt="" hidden>
+                <img class="freeze-frame" id="freezeFrame" alt="剛剛拍下的照片" hidden>
+
+                <div class="viewer-idle" id="viewerIdle">
+                  <div class="aperture-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" focusable="false">
+                      <circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="1.4"/>
+                      <circle cx="32" cy="32" r="14" fill="none" stroke="currentColor" stroke-width=".9" opacity=".7"/>
+                      <path d="M32 18 L38 27 H26 Z M33 46 L39 37 H27 Z M18 32 L27 26 V38 Z M46 32 L37 26 V38 Z" fill="currentColor" opacity=".8"/>
+                    </svg>
+                  </div>
+                  <p>按「開啟相機」，<br>讓光線進來。</p>
+                  <button class="btn btn-paper btn-camera" id="openCameraBtn" type="button">開啟相機 <span>Camera</span></button>
+                  <button class="link-btn" id="demoBtn" type="button">試玩紙偶 <span>· Demo</span></button>
+                  <p class="secure-note">需要相機權限 · 影像不會離開此裝置</p>
+                </div>
+
+                <div class="viewer-native" id="viewerNative" hidden>
+                  <div class="native-glyph" aria-hidden="true">
+                    <svg viewBox="0 0 68 68" focusable="false">
+                      <rect x="10" y="19" width="48" height="35" rx="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+                      <path d="M24 19 L28 12 H41 L45 19" fill="none" stroke="currentColor" stroke-width="1.3"/>
+                      <circle cx="34" cy="36" r="10" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                      <circle cx="34" cy="36" r="4.5" fill="none" stroke="currentColor" stroke-width=".8" opacity=".7"/>
+                      <circle cx="49" cy="25" r="1.4" fill="currentColor"/>
+                    </svg>
+                  </div>
+                  <p class="native-title">系統相機已就緒。</p>
+                  <p class="native-copy">按下開始後，每一格會打開手機相機。<br>由你按下快門，完成四連拍。</p>
+                  <button class="link-btn" id="backToLiveCamera" type="button">改用即時相機</button>
+                </div>
+
+                <div class="viewer-loading" id="viewerLoading" hidden>
+                  <span class="loader-ring" aria-hidden="true"></span>
+                  <p>正在打開鏡頭…</p>
+                  <small>請在瀏覽器提示中允許相機</small>
+                </div>
+
+                <div class="viewer-error" id="viewerError" hidden>
+                  <p class="error-title">鏡頭沒有亮起。</p>
+                  <p class="error-copy" id="cameraErrorCopy">請允許相機權限，或改用系統相機。</p>
+                  <div class="error-actions">
+                    <button class="btn btn-paper" id="retryCameraBtn" type="button">再試一次</button>
+                    <button class="btn btn-ghost" id="nativeCameraBtn" type="button">使用系統相機</button>
+                    <button class="btn btn-ghost" id="errorDemoBtn" type="button">試玩紙偶</button>
+                    <button class="btn btn-ghost" id="errorOpenTabBtn" type="button" hidden>在新分頁開啟</button>
+                  </div>
+                  <p class="secure-note">即時相機需要 HTTPS 或 localhost；系統相機在微信內亦可使用。</p>
+                </div>
+
+                <div class="viewfinder-overlay" aria-hidden="true">
+                  <span class="vf-corner vf-tl"></span>
+                  <span class="vf-corner vf-tr"></span>
+                  <span class="vf-corner vf-bl"></span>
+                  <span class="vf-corner vf-br"></span>
+                  <span class="vf-cross vf-cross-top"></span>
+                  <span class="vf-cross vf-cross-bottom"></span>
+                </div>
+
+                <span class="live-badge" id="liveBadge" hidden><i aria-hidden="true"></i> LIVE</span>
+                <span class="shot-counter" id="shotCounter" hidden>01 <small>/ 04</small></span>
+
+                <div class="countdown" id="countdown" hidden aria-live="assertive">
+                  <div class="countdown-ring" aria-hidden="true">
+                    <svg viewBox="0 0 120 120" focusable="false">
+                      <circle class="ring-track" cx="60" cy="60" r="55"></circle>
+                      <circle class="ring-progress" id="ringProgress" cx="60" cy="60" r="55"></circle>
+                    </svg>
+                  </div>
+                  <span class="countdown-number" id="countdownNumber">3</span>
+                  <span class="countdown-caption">第 <b id="countdownShot">1</b> 張 <i>·</i> SMILE</span>
+                </div>
+
+                <div class="viewer-flash" id="viewerFlash" aria-hidden="true"></div>
+              </div>
+
+              <div class="viewer-meta">
+                <div class="film-stock">
+                  <span class="film-tag">黑白四格</span>
+                  <span class="film-sub">SILVER · 400</span>
+                </div>
+                <div class="meta-actions">
+                  <button class="meta-btn" id="flipCameraBtn" type="button" hidden>切換鏡頭</button>
+                  <span class="frame-count" id="frameCount">0 / 4</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="thumb-rail" id="thumbRail" aria-label="已拍下的四格照片">
+              <div class="thumb" data-index="0"><span class="thumb-no">01</span><img alt="第 1 格照片" hidden><span class="thumb-empty" aria-hidden="true"></span></div>
+              <div class="thumb" data-index="1"><span class="thumb-no">02</span><img alt="第 2 格照片" hidden><span class="thumb-empty" aria-hidden="true"></span></div>
+              <div class="thumb" data-index="2"><span class="thumb-no">03</span><img alt="第 3 格照片" hidden><span class="thumb-empty" aria-hidden="true"></span></div>
+              <div class="thumb" data-index="3"><span class="thumb-no">04</span><img alt="第 4 格照片" hidden><span class="thumb-empty" aria-hidden="true"></span></div>
+            </div>
+          </div>
+
+          <div class="control-panel">
+            <p class="eyebrow">影相 <span class="jyutping">· JING2 SOENG2</span></p>
+            <h1 id="interiorTitle">準備好未？</h1>
+            <p class="lede" id="panelLede">由你按下按鈕，才會開啟相機。<br>四格銀鹽，留住此刻。</p>
+
+            <div class="coin-module" id="coinModule">
+              <button class="coin-button" id="coinButton" type="button" aria-label="投入一枚硬幣" aria-describedby="coinStatus">
+                <span class="coin-face" aria-hidden="true">
+                  <svg viewBox="0 0 48 48" focusable="false">
+                    <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="1"/>
+                    <circle cx="24" cy="24" r="16" fill="none" stroke="currentColor" stroke-width=".6" opacity=".7"/>
+                    <path d="M24 11 L26.3 21.7 L37 24 L26.3 26.3 L24 37 L21.7 26.3 L11 24 L21.7 21.7 Z" fill="currentColor"/>
+                  </svg>
+                </span>
+                <span class="coin-drop" id="coinDrop" aria-hidden="true"></span>
+              </button>
+              <span class="coin-copy">
+                <span class="coin-label">投入硬幣</span>
+                <span class="coin-status" id="coinStatus">未投幣 · NO CREDIT</span>
+              </span>
+              <span class="credit-display" id="creditDisplay">00</span>
+            </div>
+
+            <button class="btn btn-primary btn-start" id="startBtn" type="button" disabled>
+              <span class="start-aperture" aria-hidden="true">
+                <svg viewBox="0 0 36 36" focusable="false">
+                  <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" stroke-width="1"/>
+                  <path d="M18 8 L22 15 H14 Z M19 28 L23 21 H15 Z M8 18 L15 14 V22 Z M28 18 L21 14 V22 Z" fill="currentColor" opacity=".9"/>
+                </svg>
+              </span>
+              <span class="start-copy">開始拍照 <small>START SESSION</small></span>
+            </button>
+
+            <p class="start-hint" id="startHint">請先開啟相機，並投入一枚硬幣。</p>
+
+            <div class="session-spec" aria-label="拍攝規格">
+              <span><i aria-hidden="true">3″</i>每 3 秒一張</span>
+              <span><i aria-hidden="true">04</i>共四張</span>
+              <span><i aria-hidden="true">✦</i>自動補光</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="developing-overlay" id="developingOverlay" hidden>
+        <div class="develop-card">
+          <div class="develop-reel" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <p class="eyebrow">IN THE DARKROOM</p>
+          <h2>菲林沖洗中。</h2>
+          <p>四格光線正在銀鹽紙上慢慢浮現。</p>
+          <div class="develop-bar"><i id="developBar"></i></div>
+          <small id="developStatus">顯影 · DEVELOPING</small>
+        </div>
+      </div>
+
+      <div class="native-modal" id="nativeShotOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="nativeShotTitle">
+        <div class="native-card">
+          <p class="eyebrow">SYSTEM CAMERA · 第 <span id="nativeShotIndex">1</span> / 4 張</p>
+          <h2 id="nativeShotTitle">請用系統相機<br>拍下這一格。</h2>
+          <p>此瀏覽器未能提供即時預覽，我們會用一次次快門完成四連拍。</p>
+          <button class="btn btn-primary" id="nativeShootBtn" type="button">開啟系統相機 <span>→</span></button>
+          <button class="link-btn" id="nativeCancelBtn" type="button">結束這次拍攝</button>
+        </div>
+      </div>
+
+      <input id="nativeCaptureInput" type="file" accept="image/*" capture="user" hidden>
+    </section>
+
+    <!-- ────────────────────────────── 03 · PRINT SLOT ─────────────────────────── -->
+    <section class="screen screen-print" id="screenPrint" data-screen="print" aria-labelledby="printTitle" hidden>
+      <div class="print-rays" aria-hidden="true"></div>
+      <div class="print-shell">
+        <div class="print-topbar">
+          <p class="eyebrow">拍照亭外側 <span>·</span> THE PRINT SLOT</p>
+          <span class="print-ticket">No. 07</span>
+        </div>
+
+        <div class="print-grid">
+          <div class="print-copy">
+            <p class="eyebrow" id="printEyebrow">顯影中 · DEVELOPING</p>
+            <h1 id="printTitle">請稍候，<br>光正在紙上停留。</h1>
+            <p class="print-sub" id="printSub">四格銀鹽，正在慢慢浮現。</p>
+            <button class="btn btn-primary" id="collectBtn" type="button" hidden>
+              取相 <span class="btn-en">COLLECT YOUR PRINT</span><span aria-hidden="true">→</span>
+            </button>
+            <p class="print-footnote">相紙會先從機身外側吐出，再交到你手上。</p>
+          </div>
+
+          <div class="print-machine" aria-live="polite">
+            <div class="machine-top">
+              <span class="machine-label">PHOTO · BOOTH</span>
+              <span class="machine-no">07</span>
+            </div>
+            <div class="machine-brass">
+              <span class="machine-screw ms-l" aria-hidden="true"></span>
+              <span class="machine-screw ms-r" aria-hidden="true"></span>
+              <span class="machine-text">PRINT · 取相口</span>
+            </div>
+            <div class="print-slit" aria-hidden="true"><span></span></div>
+            <div class="print-window" id="printWindow">
+              <div class="print-paper" id="printPaper">
+                <img id="printStripImg" alt="剛沖印好的四連拍相紙">
+              </div>
+            </div>
+            <div class="machine-tray" aria-hidden="true">
+              <span class="tray-line"></span><span class="tray-line tray-line--short"></span>
+            </div>
+            <p class="machine-caption" id="machineCaption">READY TO COLLECT</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────────────────────── 04 · RESULT ─────────────────────────────── -->
+    <section class="screen screen-result" id="screenResult" data-screen="result" aria-labelledby="resultTitle" hidden>
+      <div class="result-rays" aria-hidden="true"></div>
+      <div class="result-shell">
+        <header class="result-head">
+          <p class="eyebrow">THE PAPER PHOTOBOOTH <span>·</span> No. 07</p>
+          <p class="result-meta">SILVER GELATIN · FOUR POSES</p>
+        </header>
+
+        <div class="result-grid">
+          <div class="strip-showcase">
+            <div class="strip-arch" aria-hidden="true"></div>
+            <div class="strip-board">
+              <canvas id="stripPreview" width="720" height="2516" role="img" aria-label="你的黑白四連拍相紙，可輸入名字、日期和留言"></canvas>
+            </div>
+            <p class="strip-caption"><span>銀鹽四連拍</span><i aria-hidden="true"></i><span>MADE IN THE BOOTH</span></p>
+          </div>
+
+          <div class="result-editor">
+            <p class="eyebrow">THE PAPER PHOTOBOOTH <span>·</span> 07</p>
+            <h1 id="resultTitle">收好呢份回憶。</h1>
+            <p class="lede">寫下名字與一句話，讓這格光陰有你的署名。</p>
+
+            <form id="printForm" novalidate>
+              <div class="field-row">
+                <label class="field">
+                  <span class="field-label">名字 <small>NAME</small></span>
+                  <input id="nameInput" name="name" type="text" maxlength="12" autocomplete="name" placeholder="你的名字" enterkeyhint="done">
+                  <span class="field-count" id="nameCount">0 / 12</span>
+                </label>
+                <label class="field field--date">
+                  <span class="field-label">日期 <small>DATE</small></span>
+                  <input id="dateInput" name="date" type="date">
+                </label>
+              </div>
+
+              <label class="field field--message">
+                <span class="field-label">留言 <small>MESSAGE</small><span class="field-max">最多 28 字</span></span>
+                <textarea id="messageInput" name="message" rows="2" maxlength="28" placeholder="寫句紀念…" enterkeyhint="done"></textarea>
+                <span class="field-count" id="messageCount">0 / 28</span>
+              </label>
+            </form>
+
+            <div class="result-actions">
+              <button class="btn btn-primary btn-save" id="saveBtn" type="button">
+                <span class="save-icon" aria-hidden="true">↓</span>
+                <span>保存照片 <small>PNG</small></span>
+              </button>
+              <button class="btn btn-paper" id="retakeBtn" type="button">再影一輯 <span>· Retake</span></button>
+            </div>
+
+            <p class="local-note"><span aria-hidden="true">✦</span> 照片只在本機處理，不上傳、不備份。<button class="inline-save" id="inlineSaveBtn" type="button">長按保存</button></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="save-sheet" id="saveSheet" hidden role="dialog" aria-modal="true" aria-labelledby="saveSheetTitle">
+    <div class="save-sheet-card">
+      <button class="sheet-close" id="saveSheetClose" type="button" aria-label="關閉">×</button>
+      <p class="eyebrow">YOUR PRINT IS READY</p>
+      <h2 id="saveSheetTitle">長按相紙，保存到相簿。</h2>
+      <p>微信或部分 iPad 瀏覽器不支援直接下載，請長按下方圖片並選擇「儲存圖片」。</p>
+      <img id="saveSheetImage" alt="四連拍 PNG，可長按保存">
+      <button class="btn btn-primary" id="saveSheetCloseBtn" type="button">知道了</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
